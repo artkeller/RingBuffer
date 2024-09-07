@@ -145,6 +145,17 @@ public:
   bool peek(ET &outElement, const size_t distance = 0)
       __attribute__((noinline));
   bool lockedPeek(ET &outElement, const size_t distance = 0);
+
+// New methods for iterators
+  IT begin() const { return mReadIndex; }
+  IT end() const { 
+    // Handle wrap-around logic for end iterator
+    IT temp_index = mReadIndex + mSize;
+    if (temp_index >= S) {
+      temp_index -= S;
+    }
+    return temp_index; 
+  }
 };
 
 template <typename ET, size_t S, typename IT, typename BT>

@@ -146,6 +146,14 @@ public:
       __attribute__((noinline));
   bool lockedPeek(ET &outElement, const size_t distance = 0);
 
+  RingBuf operator*(int factor) const {
+        RingBuf result = *this;
+        for (auto& element : result) {
+            element *= factor;
+        }
+        return result;
+    }
+
 // New methods for iterators
   IT begin() const { return mReadIndex; }
   IT end() const { 

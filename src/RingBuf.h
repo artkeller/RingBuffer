@@ -147,9 +147,9 @@ public:
   bool lockedPeek(ET &outElement, const size_t distance = 0);
 
   RingBuf operator*(int factor) const {
-        RingBuf result = *this;
-        for (auto& element : result) {
-            element *= factor;
+        RingBuf<ET, S> result(*this); // Create a copy
+        for (size_t i = 0; i < S; ++i) {
+            result[i] *= factor;
         }
         return result;
     }
